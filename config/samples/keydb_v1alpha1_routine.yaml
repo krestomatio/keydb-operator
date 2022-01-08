@@ -1,6 +1,0 @@
-apiVersion: keydb.krestomat.io/v1alpha1
-kind: Routine
-metadata:
-  name: routine-sample
-spec:
-  # Add fields here

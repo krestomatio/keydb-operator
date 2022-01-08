@@ -8,14 +8,5 @@
     vars:
       cr_state: absent
   playbook: playbooks/keydb.yml
-
-- version: v1alpha1
-  group: keydb.krestomat.io
-  kind: Routine
-  watchDependentResources: false
-  reconcilePeriod: 1m
-  playbook: playbooks/routine.yml
-  vars:
-    cr_kind: Routine
-
+  
 #+kubebuilder:scaffold:watch

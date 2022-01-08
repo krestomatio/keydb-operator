@@ -13,11 +13,4 @@ resources:
   group: keydb
   kind: Keydb
   version: v1alpha1
-- api:
-    crdVersion: v1
-    namespaced: true
-  domain: krestomat.io
-  group: keydb
-  kind: Routine
-  version: v1alpha1
 version: "3"

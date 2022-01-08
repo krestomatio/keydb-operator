@@ -1,5 +1,4 @@
 ## Append samples you want in your CSV to this file as resources ##
 resources:
 - keydb_v1alpha1_keydb.yaml
-- keydb_v1alpha1_routine.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples
