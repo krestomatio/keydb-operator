@@ -1,0 +1,6 @@
+[submodule "molecule"]
+	path = molecule
+	url = https://github.com/krestomatio/operator-sdk-molecule.git
+[submodule "hack/mk"]
+	path = hack/mk
+	url = https://github.com/krestomatio/operator-sdk-makefiles.git

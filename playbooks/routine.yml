@@ -1,7 +1,11 @@
----
-- hosts: localhost
-  gather_facts: no
+- name: keydb routine
+  hosts: localhost
+  gather_facts: false
   collections:
     - kubernetes.core
     - operator_sdk.util
-  tasks: []
+  tasks:
+    - name: import keydb routine
+      import_role:
+        name: krestomatio.k8s.v1alpha1.database.keydb
+        tasks_from: routine.yml

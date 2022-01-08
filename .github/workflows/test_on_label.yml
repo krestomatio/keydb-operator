@@ -1,0 +1,19 @@
+name: Test on label
+on:
+  pull_request_target:
+    types:
+      - labeled
+
+jobs:
+  test-group-comment:
+    name: Test group comment
+    if: github.event.label.name == 'test_group'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            /test group

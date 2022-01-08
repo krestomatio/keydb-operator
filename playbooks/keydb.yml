@@ -4,4 +4,6 @@
   collections:
     - kubernetes.core
     - operator_sdk.util
-  tasks: []
+  tasks:
+    - import_role:
+        name: krestomatio.k8s.v1alpha1.database.keydb
