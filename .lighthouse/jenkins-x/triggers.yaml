@@ -1,0 +1,24 @@
+apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
+kind: TriggerConfig
+spec:
+  presubmits:
+  - name: k8s
+    context: "k8s"
+    always_run: false
+    require_run: true
+    trigger: (?m)^/test( all| group| k8s),?(s+|$)
+    rerun_command: /test k8s
+    source: "pullrequest.yaml"
+  - name: lint
+    context: "lint"
+    always_run: true
+    trigger: (?m)^/test( all| lint),?(s+|$)
+    rerun_command: /test lint
+    source: "pullrequest.yaml"
+  postsubmits:
+  - name: release
+    context: "release"
+    source: "release.yaml"
+    branches:
+    - ^main$
+    - ^master$
