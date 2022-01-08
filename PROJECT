@@ -5,4 +5,12 @@ plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
 projectName: keydb-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: krestomat.io
+  group: keydb
+  kind: Keydb
+  version: v1alpha1
 version: "3"

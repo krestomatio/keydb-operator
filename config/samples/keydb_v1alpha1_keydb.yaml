@@ -1,0 +1,6 @@
+apiVersion: keydb.krestomat.io/v1alpha1
+kind: Keydb
+metadata:
+  name: keydb-sample
+spec:
+  # Add fields here
