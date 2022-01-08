@@ -4,4 +4,8 @@
   group: keydb.krestomat.io
   kind: Keydb
   playbook: playbooks/keydb.yml
+- version: v1alpha1
+  group: keydb.krestomat.io
+  kind: Routine
+  playbook: playbooks/routine.yml
 #+kubebuilder:scaffold:watch

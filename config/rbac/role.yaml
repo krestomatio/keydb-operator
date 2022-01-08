@@ -54,4 +54,21 @@ rules:
       - patch
       - update
       - watch
+  ##
+  ## Rules for keydb.krestomat.io/v1alpha1, Kind: Routine
+  ##
+  - apiGroups:
+      - keydb.krestomat.io
+    resources:
+      - routines
+      - routines/status
+      - routines/finalizers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
 #+kubebuilder:scaffold:rules
