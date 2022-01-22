@@ -10,10 +10,12 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - configmaps
       - secrets
       - pods
       - pods/exec
       - pods/log
+      - services
     verbs:
       - create
       - delete
@@ -25,10 +27,38 @@ rules:
   - apiGroups:
       - apps
     resources:
-      - deployments
-      - daemonsets
-      - replicasets
       - statefulsets
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  ##
+  ## Rules for Openshift route
+  ##
+  - apiGroups:
+      - route.openshift.io
+    resources:
+      - routes
+      - routes/custom-host
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  ##
+  ## Rules for ingress
+  ##
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
     verbs:
       - create
       - delete
