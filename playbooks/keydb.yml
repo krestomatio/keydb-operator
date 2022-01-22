@@ -1,6 +1,7 @@
 ---
-- hosts: localhost
-  gather_facts: no
+- name: keydb k8s resources
+  hosts: localhost
+  gather_facts: false
   collections:
     - kubernetes.core
     - operator_sdk.util
