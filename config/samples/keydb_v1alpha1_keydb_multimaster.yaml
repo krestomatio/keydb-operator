@@ -1,11 +1,11 @@
 apiVersion: keydb.krestomat.io/v1alpha1
 kind: Keydb
 metadata:
-  name: keydb-sample
+  name: keydb-sample-multimaster
 spec:
   # keydbMode: one of 'standalone', 'multimaster', 'custom'
   # By default 'standalone' is 1 replica and 'multimaster' 3
-  keydb_mode: 'standalone'
+  keydb_mode: 'multimaster'
 
   # Enable and assign a limit of 1Gi memory
   keydb_resource_limits: true
