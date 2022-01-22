@@ -3,4 +3,19 @@ kind: Keydb
 metadata:
   name: keydb-sample
 spec:
-  # Add fields here
+  # keydbMode: one of 'standalone', 'multimaster', 'custom'
+  # By default 'standalone' is 1 replica and 'multimaster' 3
+  keydb_mode: 'multimaster'
+
+  # Assign a limit of 1Gi memory
+  keydb_resource_limits: true
+  keydb_resource_limits_cpu: 1
+  keydb_resource_limits_memory: 1Gi
+
+  # Assign 1Gi for each replica persistent volume
+  keydb_pvc_data_size: 1Gi
+
+  # Add extra keydb config
+  keydb_extra_config: |
+    maxmemory 900mb
+    maxmemory-policy allkeys-lru
