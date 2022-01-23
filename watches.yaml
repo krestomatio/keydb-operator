@@ -8,5 +8,5 @@
     vars:
       cr_state: absent
   playbook: playbooks/keydb.yml
-  
+
 #+kubebuilder:scaffold:watch
