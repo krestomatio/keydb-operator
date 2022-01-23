@@ -1,8 +1,9 @@
-> The Kubernetes Operator in this project is in **Alpha** version. **Use at your own risk**
-
-A [KeyDB (Drop-In Alternative to Redis)](https://github.com/EQ-Alpha/KeyDB) Operator for Kubernetes. Create a standalone (1 replica) or a multimaster (3 replicas) [KeyDB instance](https://github.com/EQ-Alpha/KeyDB)
+[KeyDB](https://keydb.dev/) is a multithreading, drop-in alternative to Redis. [Keydb-operator](https://github.com/krestomatio/keydb-operator) easily creates a standalone (1 replica) or a multimaster (3 replicas) [KeyDB in-memory database](https://github.com/EQ-Alpha/KeyDB). When KeyDB is in [multimaster mode]((https://docs.keydb.dev/docs/multi-master/)), it is possible to have more than one master, allowing read/write operations to all them. That helps for high availability and fault tolerance.
 
 ## Install
+
+> The Kubernetes Operator in this project is in **Alpha** version. **Use at your own risk**
+
 Check out the [sample CR](config/samples/keydb_v1alpha1_keydb.yaml). Follow the next steps to first install the KeyDB Operatorn and then a KeyDB instance:
 ```bash
 # install the operator
