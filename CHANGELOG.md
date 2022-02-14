@@ -1,5 +1,5 @@
 ## Changes
 
-### Chores
+### New Features
 
-* update: bump collection krestomatio.k8s 0.0.57 (krestomatio-cibot)
+* add additional print columns (Job Céspedes Ortiz)
