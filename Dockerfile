@@ -32,3 +32,4 @@ ENV ANSIBLE_INVENTORY=${HOME}/inventory.yml \
 
 # Install krestomatio collection
 COPY --from=collection --chown=1001:0 ${HOME}/.ansible/collections/ansible_collections/krestomatio ${HOME}/.ansible/collections/ansible_collections/krestomatio
+RUN pip install --user -r ${HOME}/.ansible/collections/ansible_collections/krestomatio/k8s/requirements.txt
