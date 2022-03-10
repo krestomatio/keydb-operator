@@ -37,37 +37,6 @@ rules:
       - update
       - watch
   ##
-  ## Rules for Openshift route
-  ##
-  - apiGroups:
-      - route.openshift.io
-    resources:
-      - routes
-      - routes/custom-host
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  ##
-  ## Rules for ingress
-  ##
-  - apiGroups:
-      - networking.k8s.io
-    resources:
-      - ingresses
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  ##
   ## Rules for keydb.krestomat.io/v1alpha1, Kind: Keydb
   ##
   - apiGroups:
