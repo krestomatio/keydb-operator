@@ -3,6 +3,15 @@
 - version: v1alpha1
   group: keydb.krestomat.io
   kind: Keydb
+  blacklist:
+    # issue seing other secrets as dependant resources and triggering reconciliation (at least in logs)
+    - group: ""
+      version: v1
+      kind: Secret
+    # issue seing other config maps as dependant resources and triggering reconciliation (at least in logs)
+    - group: ""
+      version: v1
+      kind: ConfigMap
   finalizer:
     name: keydb.krestomat.io/finalizer
     vars:
