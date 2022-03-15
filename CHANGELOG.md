@@ -1,5 +1,5 @@
 ## Changes
 
-### Chores
+### New Features
 
-* update: bump collection krestomatio.k8s 0.0.77 (krestomatio-cibot)
+* rbac: add pvc permissions (Job Céspedes Ortiz)
