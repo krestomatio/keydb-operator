@@ -1,3 +1,5 @@
+### camelCase
+---
 apiVersion: keydb.krestomat.io/v1alpha1
 kind: Keydb
 metadata:
@@ -5,17 +7,17 @@ metadata:
 spec:
   # keydbMode: one of 'standalone', 'multimaster', 'custom'
   # By default 'standalone' is 1 replica and 'multimaster' 3
-  keydb_mode: 'multimaster'
+  keydbMode: 'multimaster'
 
   # Enable and assign a limit of 1Gi memory
-  keydb_resource_limits: true
-  keydb_resource_limits_cpu: 1
-  keydb_resource_limits_memory: 1Gi
+  keydbResourceLimits: true
+  keydbResourceLimitsCpu: 1
+  keydbResourceLimitsMemory: 1Gi
 
   # Assign 1Gi for each replica persistent volume
-  keydb_pvc_data_size: 1Gi
+  keydbPvcDataSize: 1Gi
 
   # Add extra keydb config
-  keydb_extra_config: |
+  keydbExtraConfig: |
     maxmemory 900mb
     maxmemory-policy allkeys-lru
