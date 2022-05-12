@@ -39,15 +39,28 @@ spec:
             x-kubernetes-preserve-unknown-fields: true
         type: object
     additionalPrinterColumns:
+    - description: Age of the resource
+      jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
     - description: Site status such as Unknown/SettingUp/Ready/Failed/Terminating
         etc
       jsonPath: .status.state
       name: STATUS
       type: string
-    - description: Age of the resource
-      jsonPath: .metadata.creationTimestamp
-      name: AGE
+    - description: Time of latest transition
+      jsonPath: .status.conditions[?(@.type=='Ready')].lastTransitionTime
+      name: SINCE
       type: date
+    - description: KeyDB CR mode: one of 'standalone', 'multimaster', 'custom'
+        etc
+      jsonPath: .spec.keydbMode
+      name: MODE
+      type: string
+    - description: Generated service name to access CR
+      jsonPath: .status.service
+      name: SERVICE
+      type: string
     served: true
     storage: true
     subresources:
