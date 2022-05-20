@@ -52,8 +52,7 @@ spec:
       jsonPath: .status.conditions[?(@.type=='Ready')].lastTransitionTime
       name: SINCE
       type: date
-    - description: KeyDB CR mode: one of 'standalone', 'multimaster', 'custom'
-        etc
+    - description: "KeyDB CR mode: one of 'standalone', 'multimaster', 'custom'"
       jsonPath: .spec.keydbMode
       name: MODE
       type: string
