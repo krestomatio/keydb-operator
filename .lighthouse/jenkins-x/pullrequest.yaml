@@ -25,7 +25,7 @@ spec:
                 memory: 512Mi
             workingDir: /workspace/source
           steps:
-            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@9ae86d98b3fc7a74e20148a39f269adc88f96933
+            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@11f0934b9c616f56580f9fc6b71ce48ffc2ffe29
             - image: quay.io/krestomatio/ansible-operator-ci:0.1.30
               name: pr
               args:
