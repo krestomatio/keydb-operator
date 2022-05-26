@@ -1,5 +1,5 @@
 # Stage to install krestomatio collection
-FROM quay.io/operator-framework/ansible-operator:v1.15.0 AS collection
+FROM quay.io/operator-framework/ansible-operator:v1.21.0 AS collection
 
 ## Install krestomatio collection
 ARG COLLECTION_FILE="krestomatio-k8s-master.tar.gz"
@@ -9,7 +9,7 @@ COPY $COLLECTION_FILE /tmp/$COLLECTION_FILE
 RUN ansible-galaxy collection install /tmp/${COLLECTION_FILE}
 
 # Stage to build operator container
-FROM quay.io/operator-framework/ansible-operator:v1.15.0
+FROM quay.io/operator-framework/ansible-operator:v1.21.0
 
 ## Install kubectl
 ENV KUBECTL_VERSION="1.20.7"
