@@ -12,7 +12,7 @@ RUN ansible-galaxy collection install /tmp/${COLLECTION_FILE}
 FROM quay.io/operator-framework/ansible-operator:v1.21.0
 
 ## Install kubectl
-ENV KUBECTL_VERSION="1.20.7"
+ENV KUBECTL_VERSION="1.23.6"
 USER 0
 RUN echo "Installing kubectl version: ${KUBECTL_VERSION}..."  && \
     curl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
