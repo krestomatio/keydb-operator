@@ -1,5 +1,5 @@
 ## Changes
 
-### Chores
+### New Features
 
-* update: bump collection krestomatio.k8s 0.1.11 (krestomatio-cibot)
+* upgrade to operator sdk 1.21.0 from 1.15.0 (Job Céspedes Ortiz)
