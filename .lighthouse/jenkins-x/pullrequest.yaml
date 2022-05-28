@@ -20,7 +20,7 @@ spec:
               - name: PROJECT_TIMESTAMP
                 value: midnight
             resources:
-              requests:
+              limits:
                 cpu: 400m
                 memory: 512Mi
             workingDir: /workspace/source
@@ -34,6 +34,10 @@ spec:
                 - make
               securityContext:
                 privileged: true
+              resources:
+                requests:
+                  cpu: 0.1
+                  memory: 128Mi
               volumeMounts:
                 - name: libcontainers
                   mountPath: /var/lib/containers
