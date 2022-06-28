@@ -8,13 +8,13 @@ spec:
     require_run: true
     trigger: (?m)^/test( all| group| k8s),?(s+|$)
     rerun_command: /test k8s
-    source: "pullrequest.yaml"
+    source: "k8s.yaml"
   - name: lint
     context: "lint"
     always_run: true
     trigger: (?m)^/test( all| lint),?(s+|$)
     rerun_command: /test lint
-    source: "pullrequest.yaml"
+    source: "lint.yaml"
   postsubmits:
   - name: release
     context: "release"
