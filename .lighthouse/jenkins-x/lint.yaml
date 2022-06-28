@@ -20,32 +20,22 @@ spec:
               - name: PROJECT_TIMESTAMP
                 value: midnight
             resources:
-              requests:
+              limits:
                 cpu: 400m
                 memory: 512Mi
+              requests:
+                cpu: 50m
+                memory: 32Mi
             workingDir: /workspace/source
           steps:
-            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@11f0934b9c616f56580f9fc6b71ce48ffc2ffe29
+            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@7280afe8d12539b956237d6351059eda3e2118a7
             - image: quay.io/krestomatio/ansible-operator-ci
-              name: pr
+              name: lint
               args:
-                - $(JOB_NAME)
+                - lint
               command:
                 - make
-              securityContext:
-                privileged: true
-              volumeMounts:
-                - name: libcontainers
-                  mountPath: /var/lib/containers
-                - name: shared
-                  mountPath: /shared
-          volumes:
-            - name: libcontainers
-              persistentVolumeClaim:
-                claimName: libcontainers-0sd6j3-pvc
-            - name: shared
-              persistentVolumeClaim:
-                claimName: shared-0sd6j3-pvc
+              resources: {}
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 240h0m0s

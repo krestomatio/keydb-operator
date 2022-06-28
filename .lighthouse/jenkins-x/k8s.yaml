@@ -1,0 +1,76 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  creationTimestamp: null
+  name: pullrequest
+spec:
+  pipelineSpec:
+    tasks:
+      - name: pullrequest
+        resources: {}
+        taskSpec:
+          metadata: {}
+          stepTemplate:
+            name: ''
+            env:
+              - name: HOME
+                value: /tekton/home
+              - name: VERSION_MAKEFILE
+                value: "true"
+              - name: PROJECT_TIMESTAMP
+                value: midnight
+            resources:
+              limits:
+                cpu: 400m
+                memory: 512Mi
+              requests:
+                cpu: 50m
+                memory: 32Mi
+            workingDir: /workspace/source
+          steps:
+            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@7280afe8d12539b956237d6351059eda3e2118a7
+            - image: quay.io/krestomatio/ansible-operator-ci
+              name: collection
+              args:
+                - collection-build
+              command:
+                - make
+              resources: {}
+            - image: quay.io/krestomatio/ansible-docker-ci
+              name: image
+              args:
+                - multiarch-image
+              command:
+                - make
+              securityContext:
+                privileged: true
+              resources:
+                requests:
+                  cpu: 0.1
+                  memory: 128Mi
+              volumeMounts:
+                - name: libdocker
+                  mountPath: /var/lib/docker
+                - name: shared
+                  mountPath: /shared
+            - image: quay.io/krestomatio/ansible-operator-ci
+              name: molecule
+              args:
+                - molecule
+              command:
+                - make
+              resources:
+                requests:
+                  cpu: 0.1
+                  memory: 128Mi
+          volumes:
+            - name: libdocker
+              persistentVolumeClaim:
+                claimName: libdocker-0sd6j3-pvc
+            - name: shared
+              persistentVolumeClaim:
+                claimName: shared-0sd6j3-pvc
+  podTemplate: {}
+  serviceAccountName: tekton-bot
+  timeout: 240h0m0s
+status: {}
