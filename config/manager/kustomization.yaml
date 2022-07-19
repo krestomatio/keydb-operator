@@ -16,4 +16,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: quay.io/krestomatio/keydb-operator
-  newTag: 0.1.9
+  newTag: 0.1.10
