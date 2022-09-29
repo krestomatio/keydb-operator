@@ -20,5 +20,14 @@ patches:
     - op: add
       path: /spec/template/spec/containers/0/args/-
       value: --zap-devel=true
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --zap-time-encoding=iso8601
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --zap-encoder=console
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --ansible-args='-D'
   target:
     kind: Deployment
