@@ -9,11 +9,10 @@ configMapGenerator:
   - controller_manager_config.yaml
   name: manager-config
 
-patchesStrategicMerge:
 # - enable_turbo_patch.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
 - name: controller
   newName: quay.io/krestomatio/keydb-operator
-  newTag: 0.2.4
+  newTag: 0.2.5
