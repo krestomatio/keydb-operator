@@ -10,7 +10,7 @@ configMapGenerator:
   name: manager-config
 
 patchesStrategicMerge:
-- enable_turbo_patch.yaml
+# - enable_turbo_patch.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
