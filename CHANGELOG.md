@@ -1,5 +1,5 @@
 ## Changes
 
-### Code Refactoring
+### Chores
 
-* remove turbo mode patch (Job Céspedes Ortiz)
+* update: bump collection krestomatio.k8s 0.3.10 (krestomatio-cibot)
