@@ -4,55 +4,83 @@ metadata:
   creationTimestamp: null
   name: release
 spec:
+  workspaces:
+  - name: shared-workspace
+    volumeClaimTemplate:
+      spec:
+        storageClassName: local-path
+        persistentVolumeReclaimPolicy: Delete
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
   pipelineSpec:
+    workspaces:
+    - name: shared-workspace
     tasks:
-      - name: release
-        resources: {}
-        taskSpec:
-          metadata: {}
-          stepTemplate:
-            name: ''
-            env:
-              - name: HOME
-                value: /tekton/home
-              - name: VERSION_MAKEFILE
-                value: "true"
-              - name: PROJECT_TIMESTAMP
-                value: midnight
-            resources:
-              limits:
-                cpu: 400m
-                memory: 512Mi
-              requests:
-                cpu: 50m
-                memory: 32Mi
-            workingDir: /workspace/source
-          steps:
-            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@7280afe8d12539b956237d6351059eda3e2118a7
-            - image: ghcr.io/jenkins-x/jx-changelog:0.0.47
-              name: changelog
-              resources: {}
-              args:
-              - changelog
-              command:
-              - make
-            - image: quay.io/krestomatio/ansible-operator-ci
-              name: release
-              args:
-              - release
-              command:
-              - make
-              resources:
-                requests:
-                  cpu: 0.1
-                  memory: 128Mi
-            - image: quay.io/krestomatio/ansible-operator-ci
-              name: promote
-              resources: {}
-              args:
-              - promote
-              command:
-              - make
+    - name: git-clone
+      workspaces:
+      - name: output
+        workspace: shared-workspace
+      taskRef:
+        name: git-clone
+      params:
+      - name: VERSION_MAKEFILE
+        value: "true"
+      - name: PROJECT_TIMESTAMP
+        value: midnight
+    - name: release
+      resources: {}
+      timeout: "2h0m0s"
+      runAfter:
+      - git-clone
+      workspaces:
+      - name: source
+        workspace: shared-workspace
+      taskSpec:
+        metadata: {}
+        workspaces:
+        - name: source
+          mountPath: /workspace
+        stepTemplate:
+          name: ''
+          env:
+          - name: HOME
+            value: /workspace
+          resources:
+            limits:
+              cpu: 400m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          workingDir: /workspace/source
+        steps:
+        - image: ghcr.io/jenkins-x/jx-changelog:0.0.47
+          name: changelog
+          resources: {}
+          args:
+          - changelog
+          command:
+          - make
+        - image: quay.io/krestomatio/ansible-operator-ci
+          name: release
+          args:
+          - release
+          command:
+          - make
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 128Mi
+        - image: quay.io/krestomatio/ansible-operator-ci
+          name: promote
+          resources: {}
+          args:
+          - promote
+          command:
+          - make
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 240h0m0s

@@ -3,6 +3,7 @@ kind: TriggerConfig
 spec:
   presubmits:
   - name: k8s
+    max_concurrency: 1
     context: "k8s"
     always_run: false
     require_run: true
@@ -17,6 +18,7 @@ spec:
     source: "lint.yaml"
   postsubmits:
   - name: release
+    max_concurrency: 1
     context: "release"
     source: "release.yaml"
     branches:

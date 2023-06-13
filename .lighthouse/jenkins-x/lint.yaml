@@ -2,40 +2,67 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   creationTimestamp: null
-  name: pullrequest
+  name: lint
 spec:
+  workspaces:
+  - name: shared-workspace
+    volumeClaimTemplate:
+      spec:
+        storageClassName: local-path
+        persistentVolumeReclaimPolicy: Delete
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
   pipelineSpec:
+    workspaces:
+    - name: shared-workspace
     tasks:
-      - name: pullrequest
-        resources: {}
-        taskSpec:
-          metadata: {}
-          stepTemplate:
-            name: ''
-            env:
-              - name: HOME
-                value: /tekton/home
-              - name: VERSION_MAKEFILE
-                value: "true"
-              - name: PROJECT_TIMESTAMP
-                value: midnight
-            resources:
-              limits:
-                cpu: 400m
-                memory: 512Mi
-              requests:
-                cpu: 50m
-                memory: 32Mi
-            workingDir: /workspace/source
-          steps:
-            - image: uses:krestomatio/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@7280afe8d12539b956237d6351059eda3e2118a7
-            - image: quay.io/krestomatio/ansible-operator-ci
-              name: lint
-              args:
-                - lint
-              command:
-                - make
-              resources: {}
+    - name: git-clone-pr
+      workspaces:
+      - name: output
+        workspace: shared-workspace
+      taskRef:
+        name: git-clone-pr
+      params:
+      - name: VERSION_MAKEFILE
+        value: "true"
+      - name: PROJECT_TIMESTAMP
+        value: midnight
+    - name: lint
+      resources: {}
+      runAfter:
+      - git-clone-pr
+      workspaces:
+      - name: source
+        workspace: shared-workspace
+      taskSpec:
+        metadata: {}
+        workspaces:
+        - name: source
+          mountPath: /workspace
+        stepTemplate:
+          name: ''
+          env:
+          - name: HOME
+            value: /workspace
+          resources:
+            limits:
+              cpu: 400m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          workingDir: /workspace/source
+        steps:
+        - image: quay.io/krestomatio/ansible-operator-ci
+          name: lint
+          args:
+          - lint
+          command:
+          - make
+          resources: {}
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 240h0m0s
