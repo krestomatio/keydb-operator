@@ -68,6 +68,9 @@ spec:
               cpu: 50m
               memory: 32Mi
           workingDir: /workspace/source
+          volumeMounts:
+          - name: shared
+            mountPath: /shared
         steps:
         - image: quay.io/krestomatio/ansible-operator-ci
           name: collection
@@ -89,9 +92,6 @@ spec:
             requests:
               cpu: 0.1
               memory: 128Mi
-          volumeMounts:
-          - name: shared
-            mountPath: /shared
         - image: quay.io/krestomatio/ansible-operator-ci
           name: molecule
           args:
