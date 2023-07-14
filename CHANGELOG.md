@@ -1,5 +1,5 @@
 ## Changes
 
-### New Features
+### Chores
 
-* add rbac permissions for pod autoscalers (Job Céspedes Ortiz)
+* update: bump collection krestomatio.k8s 0.3.23 (krestomatio-cibot)
