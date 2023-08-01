@@ -12,6 +12,12 @@
     - group: ""
       version: v1
       kind: ConfigMap
+    - group: "autoscaling"
+      version: v2
+      kind: HorizontalPodAutoscaler
+    - group: "autoscaling.k8s.io"
+      version: v1
+      kind: VerticalPodAutoscaler
   finalizer:
     name: keydb.krestomat.io/finalizer
     vars:
