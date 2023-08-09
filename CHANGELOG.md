@@ -1,5 +1,5 @@
 ## Changes
 
-### New Features
+### Chores
 
-* omit resources in watcher (Job Céspedes Ortiz)
+* update: bump collection krestomatio.k8s 0.3.36 (krestomatio-cibot)
