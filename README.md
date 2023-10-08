@@ -35,3 +35,6 @@ For different or advanced configuration via the CR spec, take a look at the [var
 
 ## Want to contribute?
 * Use github issues to report bugs, send enhancement, new feature requests and questions
+
+## [About Krestomatio](https://krestomatio.com/about)
+[Krestomatio is a managed service for Moodle™ e-learning platforms](https://krestomatio.com/). It allows you to have open-source instances managed by a service optimized for Moodle™, complete with an additional plugin pack and customization options.
