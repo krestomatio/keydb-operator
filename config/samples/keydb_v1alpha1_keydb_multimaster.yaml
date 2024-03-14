@@ -17,6 +17,20 @@ spec:
   # Assign 1Gi for each replica persistent volume
   keydbPvcDataSize: 1Gi
 
+  # Enable autoexpansion
+  # IMPORTANT:
+  # * Kubernetes cluster and pvc MUST support expansion of volumes
+  # * In older cluster versions, pods require restart when autoexpanding if Kubernetes feature gate
+  #   'ExpandInUsePersistentVolumes' is false. See: https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
+  # * Rempve keydbPvcDataSize
+  # Autoexpansion: if storage available is less than 20% or 'keydbPvcDataAutoexpansionIncrementGib', adjust PVC storage size according to 'keydbPvcDataAutoexpansionIncrementGib' and 'keydbPvcDataAutoexpansionCapGib':
+  ## Enable autoexpansion
+  # keydbPvcDataAutoexpansion: true
+  ## Every time autoexpansion is required, increment 5 GiB
+  # keydbPvcDataAutoexpansionIncrementGib: 5
+  ## But no more than 25 GiB
+  # keydbPvcDataAutoexpansionCapGib: 25
+
   # Add extra keydb config
   keydbExtraConfig: |
     maxmemory 900mb
