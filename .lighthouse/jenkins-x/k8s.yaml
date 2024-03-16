@@ -105,7 +105,9 @@ spec:
             requests:
               cpu: 0.1
               memory: 128Mi
-  podTemplate: {}
+  podTemplate:
+    nodeSelector:
+      beta.kubernetes.io/arch: amd64
   serviceAccountName: tekton-bot
   timeout: 240h0m0s
 status: {}
