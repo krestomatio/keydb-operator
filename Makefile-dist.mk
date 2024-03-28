@@ -46,6 +46,10 @@ ifeq ($(USE_IMAGE_DIGESTS), true)
 	BUNDLE_GEN_FLAGS += --use-image-digests
 endif
 
+# Set the Operator SDK version to use. By default, what is installed on the system is used.
+# This is useful for CI or a project to utilize a specific version of the operator-sdk toolkit.
+OPERATOR_SDK_VERSION ?= v1.33.0
+
 # Image URL to use all building/pushing image targets
 IMG ?= controller:latest
 
@@ -72,8 +76,9 @@ help: ## Display this help.
 ##@ Build
 
 .PHONY: run
+ANSIBLE_ROLES_PATH?="$(shell pwd)/roles"
 run: ansible-operator ## Run against the configured Kubernetes cluster in ~/.kube/config
-	ANSIBLE_ROLES_PATH="$(ANSIBLE_ROLES_PATH):$(shell pwd)/roles" $(ANSIBLE_OPERATOR) run
+	$(ANSIBLE_OPERATOR) run
 
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.
@@ -82,6 +87,23 @@ docker-build: ## Build docker image with the manager.
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
 	docker push ${IMG}
+
+# PLATFORMS defines the target platforms for  the manager image be build to provide support to multiple
+# architectures. (i.e. make docker-buildx IMG=myregistry/mypoperator:0.0.1). To use this option you need to:
+# - able to use docker buildx . More info: https://docs.docker.com/build/buildx/
+# - have enable BuildKit, More info: https://docs.docker.com/develop/develop-images/build_enhancements/
+# - be able to push the image for your registry (i.e. if you do not inform a valid value via IMG=<myregistry/image:<tag>> than the export will fail)
+# To properly provided solutions that supports more than one platform you should use this option.
+PLATFORMS ?= linux/arm64,linux/amd64,linux/s390x,linux/ppc64le
+.PHONY: docker-buildx
+docker-buildx: test ## Build and push docker image for the manager for cross-platform support
+	# copy existing Dockerfile and insert --platform=${BUILDPLATFORM} into Dockerfile.cross, and preserve the original Dockerfile
+	sed -e '1 s/\(^FROM\)/FROM --platform=\$$\{BUILDPLATFORM\}/; t' -e ' 1,// s//FROM --platform=\$$\{BUILDPLATFORM\}/' Dockerfile > Dockerfile.cross
+	- docker buildx create --name project-v3-builder
+	docker buildx use project-v3-builder
+	- docker buildx build --push --platform=$(PLATFORMS) --tag ${IMG} -f Dockerfile.cross .
+	- docker buildx rm project-v3-builder
+	rm Dockerfile.cross
 
 ##@ Deployment
 
@@ -113,7 +135,7 @@ ifeq (,$(shell which kustomize 2>/dev/null))
 	@{ \
 	set -e ;\
 	mkdir -p $(dir $(KUSTOMIZE)) ;\
-	curl -sSLo - https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.8.7/kustomize_v3.8.7_$(OS)_$(ARCH).tar.gz | \
+	curl -sSLo - https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.0.1/kustomize_v5.0.1_$(OS)_$(ARCH).tar.gz | \
 	tar xzf - -C bin/ ;\
 	}
 else
@@ -129,7 +151,7 @@ ifeq (,$(shell which ansible-operator 2>/dev/null))
 	@{ \
 	set -e ;\
 	mkdir -p $(dir $(ANSIBLE_OPERATOR)) ;\
-	curl -sSLo $(ANSIBLE_OPERATOR) https://github.com/operator-framework/operator-sdk/releases/download/v1.21.0/ansible-operator_$(OS)_$(ARCH) ;\
+	curl -sSLo $(ANSIBLE_OPERATOR) https://github.com/operator-framework/ansible-operator-plugins/releases/download/v1.33.0/ansible-operator_$(OS)_$(ARCH) ;\
 	chmod +x $(ANSIBLE_OPERATOR) ;\
 	}
 else
@@ -137,12 +159,28 @@ ANSIBLE_OPERATOR = $(shell which ansible-operator)
 endif
 endif
 
+.PHONY: operator-sdk
+OPERATOR_SDK ?= ./bin/operator-sdk
+operator-sdk: ## Download operator-sdk locally if necessary.
+ifeq (,$(wildcard $(OPERATOR_SDK)))
+ifeq (, $(shell which operator-sdk 2>/dev/null))
+	@{ \
+	set -e ;\
+	mkdir -p $(dir $(OPERATOR_SDK)) ;\
+	curl -sSLo $(OPERATOR_SDK) https://github.com/operator-framework/operator-sdk/releases/download/$(OPERATOR_SDK_VERSION)/operator-sdk_$(OS)_$(ARCH) ;\
+	chmod +x $(OPERATOR_SDK) ;\
+	}
+else
+OPERATOR_SDK = $(shell which operator-sdk)
+endif
+endif
+
 .PHONY: bundle
-bundle: kustomize ## Generate bundle manifests and metadata, then validate generated files.
-	operator-sdk generate kustomize manifests -q
+bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then validate generated files.
+	$(OPERATOR_SDK) generate kustomize manifests -q
 	cd config/manager && $(KUSTOMIZE) edit set image controller=$(IMG)
-	$(KUSTOMIZE) build config/manifests | operator-sdk generate bundle -q --overwrite --version $(VERSION) $(BUNDLE_METADATA_OPTS)
-	operator-sdk bundle validate ./bundle
+	$(KUSTOMIZE) build config/manifests | $(OPERATOR_SDK) generate bundle $(BUNDLE_GEN_FLAGS)
+	$(OPERATOR_SDK) bundle validate ./bundle
 
 .PHONY: bundle-build
 bundle-build: ## Build the bundle image.
@@ -160,7 +198,7 @@ ifeq (,$(shell which opm 2>/dev/null))
 	@{ \
 	set -e ;\
 	mkdir -p $(dir $(OPM)) ;\
-	curl -sSLo $(OPM) https://github.com/operator-framework/operator-registry/releases/download/v1.19.1/$(OS)-$(ARCH)-opm ;\
+	curl -sSLo $(OPM) https://github.com/operator-framework/operator-registry/releases/download/v1.23.0/$(OS)-$(ARCH)-opm ;\
 	chmod +x $(OPM) ;\
 	}
 else
