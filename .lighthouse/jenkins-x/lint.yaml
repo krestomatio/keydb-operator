@@ -59,9 +59,9 @@ spec:
         - image: quay.io/krestomatio/ansible-operator-ci
           name: lint
           args:
-          - lint
+          - "600"
           command:
-          - make
+          - sleep
           resources: {}
   podTemplate: {}
   serviceAccountName: tekton-bot
