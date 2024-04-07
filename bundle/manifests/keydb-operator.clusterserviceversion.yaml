@@ -37,7 +37,7 @@ metadata:
       ]
     capabilities: Seamless Upgrades
     categories: Application Runtime
-    createdAt: "2024-04-07T22:42:28Z"
+    createdAt: "2024-04-07T22:56:27Z"
     description: |-
       This operator simplifies Keydb deployments in Kubernetes by leveraging
       the Ansible Operator SDK for automation
@@ -48,7 +48,7 @@ metadata:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: keydb-operator.v0.3.4
+  name: keydb-operator.v0.3.5
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -244,7 +244,7 @@ spec:
                 env:
                 - name: ANSIBLE_GATHERING
                   value: explicit
-                image: quay.io/krestomatio/keydb-operator:0.3.4
+                image: quay.io/krestomatio/keydb-operator:0.3.5
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -338,4 +338,4 @@ spec:
   provider:
     name: Krestomatio
     url: https://krestomatio.com
-  version: 0.3.4
+  version: 0.3.5

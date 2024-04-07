@@ -1,9 +1,6 @@
 ## Changes
 
-### Documentation
+### New Features
 
-* update README (Job Céspedes Ortiz)
-
-### Chores
-
-* update: bump collection krestomatio.k8s 0.4.8 (krestomatio-cibot)
+* add bundle (Job Céspedes Ortiz)
+* add categories to crd (Job Céspedes Ortiz)
