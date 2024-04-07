@@ -10,6 +10,9 @@ spec:
     listKind: KeydbList
     plural: keydbs
     singular: keydb
+    categories:
+    - lms
+    - database
   scope: Namespaced
   versions:
   - name: v1alpha1
