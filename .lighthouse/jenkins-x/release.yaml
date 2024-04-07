@@ -30,11 +30,18 @@ spec:
         value: "true"
       - name: PROJECT_TIMESTAMP
         value: midnight
+    - name: multiarch-builder-config
+      workspaces:
+      - name: output
+        workspace: shared-workspace
+      taskRef:
+        name: multiarch-builder-config
     - name: release
       resources: {}
       timeout: "2h0m0s"
       runAfter:
       - git-clone
+      - multiarch-builder-config
       workspaces:
       - name: source
         workspace: shared-workspace
@@ -48,6 +55,8 @@ spec:
           env:
           - name: HOME
             value: /workspace
+          - name: DOCKER_CONTEXT
+            value: multiarch-builder-amd64
           resources:
             limits:
               cpu: 400m
@@ -68,6 +77,16 @@ spec:
           name: release
           args:
           - release
+          command:
+          - make
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 128Mi
+        - image: quay.io/krestomatio/ansible-docker-ci
+          name: bundle-catalog
+          args:
+          - bundle-catalog
           command:
           - make
           resources:
