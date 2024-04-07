@@ -1,0 +1,4 @@
+warn_list:
+  - fqcn[keyword]
+  - fqcn[action-core]
+  - name[casing]

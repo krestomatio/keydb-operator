@@ -1,21 +1,43 @@
----
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  creationTimestamp: null
   name: keydbs.keydb.krestomat.io
 spec:
   group: keydb.krestomat.io
   names:
+    categories:
+    - lms
+    - database
     kind: Keydb
     listKind: KeydbList
     plural: keydbs
     singular: keydb
-    categories:
-    - lms
-    - database
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - description: Age of the resource
+      jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    - description: Site status such as Unknown/SettingUp/Ready/Failed/Terminating
+        etc
+      jsonPath: .status.state
+      name: STATUS
+      type: string
+    - description: Time of latest transition
+      jsonPath: .status.conditions[?(@.type=='Ready')].lastTransitionTime
+      name: SINCE
+      type: date
+    - description: 'KeyDB CR mode: one of ''standalone'', ''multimaster'', ''custom'''
+      jsonPath: .spec.keydbMode
+      name: MODE
+      type: string
+    - description: Generated service name to access CR
+      jsonPath: .status.service
+      name: SERVICE
+      type: string
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: Keydb is the Schema for the keydbs API
@@ -41,29 +63,13 @@ spec:
             type: object
             x-kubernetes-preserve-unknown-fields: true
         type: object
-    additionalPrinterColumns:
-    - description: Age of the resource
-      jsonPath: .metadata.creationTimestamp
-      name: AGE
-      type: date
-    - description: Site status such as Unknown/SettingUp/Ready/Failed/Terminating
-        etc
-      jsonPath: .status.state
-      name: STATUS
-      type: string
-    - description: Time of latest transition
-      jsonPath: .status.conditions[?(@.type=='Ready')].lastTransitionTime
-      name: SINCE
-      type: date
-    - description: "KeyDB CR mode: one of 'standalone', 'multimaster', 'custom'"
-      jsonPath: .spec.keydbMode
-      name: MODE
-      type: string
-    - description: Generated service name to access CR
-      jsonPath: .status.service
-      name: SERVICE
-      type: string
     served: true
     storage: true
     subresources:
       status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: null
+  storedVersions: null

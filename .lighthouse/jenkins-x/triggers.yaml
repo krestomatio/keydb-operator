@@ -2,6 +2,14 @@ apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
 kind: TriggerConfig
 spec:
   presubmits:
+  - name: image
+    max_concurrency: 1
+    context: "image"
+    always_run: false
+    require_run: false
+    trigger: (?m)^/test( all| group| image),?(s+|$)
+    rerun_command: /test image
+    source: "image.yaml"
   - name: k8s
     max_concurrency: 1
     context: "k8s"
