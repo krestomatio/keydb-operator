@@ -1,6 +1,5 @@
 ## Changes
 
-### New Features
+### Documentation
 
-* add bundle (Job Céspedes Ortiz)
-* add categories to crd (Job Céspedes Ortiz)
+* update operatorhub category (Job Céspedes Ortiz)
