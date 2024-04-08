@@ -37,7 +37,8 @@ metadata:
       ]
     capabilities: Seamless Upgrades
     categories: Database
-    createdAt: "2024-04-08T01:49:14Z"
+    containerImage: quay.io/krestomatio/keydb-operator:0.3.6
+    createdAt: "2024-04-08T04:29:57Z"
     description: |-
       This operator simplifies Keydb deployments in Kubernetes by leveraging
       the Ansible Operator SDK for automation
