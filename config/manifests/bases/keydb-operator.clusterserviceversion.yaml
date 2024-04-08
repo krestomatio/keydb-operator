@@ -4,7 +4,7 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Seamless Upgrades
-    categories: Application Runtime
+    categories: Database
     description: |-
       This operator simplifies Keydb deployments in Kubernetes by leveraging
       the Ansible Operator SDK for automation

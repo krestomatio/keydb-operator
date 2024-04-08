@@ -36,8 +36,8 @@ metadata:
         }
       ]
     capabilities: Seamless Upgrades
-    categories: Application Runtime
-    createdAt: "2024-04-07T22:56:27Z"
+    categories: Database
+    createdAt: "2024-04-08T01:43:03Z"
     description: |-
       This operator simplifies Keydb deployments in Kubernetes by leveraging
       the Ansible Operator SDK for automation
