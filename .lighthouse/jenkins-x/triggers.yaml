@@ -7,7 +7,7 @@ spec:
     context: "image"
     always_run: false
     require_run: false
-    trigger: (?m)^/test( all| group| image),?(s+|$)
+    trigger: (?m)^/test( all| image),?(s+|$)
     rerun_command: /test image
     source: "image.yaml"
   - name: k8s
