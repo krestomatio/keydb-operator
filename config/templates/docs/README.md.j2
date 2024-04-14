@@ -67,7 +67,7 @@ kubectl delete -k https://github.com/krestomatio/keydb-operator/config/default?r
 
 ## Configuration
 
-Keydb custom resource (CR) can be configure via its spec field. Keydb CR spec supports all the the variables in [v1alpha1.database.keydb ansible role](https://krestomatio.com/docs/krestomatio.k8s/roles/v1alpha1.database.keydb/defaults/main/keydb) as fields. These variables can be specified directly in the Keydb CR YAML manifest file, allowing for customization of the Keydb instance during deployment. Refer to the official [v1alpha1.database.keydb ansible role documentation](https://krestomatio.com/docs/krestomatio.k8s/roles/v1alpha1.database.keydb/) for a comprehensive list of supported fields.
+Keydb custom resource (CR) can be configure via its spec field. Keydb CR spec supports all the the variables in [v1alpha1.database.keydb ansible role](https://krestomatio.com/docs/ansible-collection-k8s/roles/v1alpha1.database.keydb/defaults/main/keydb) as fields. These variables can be specified directly in the Keydb CR YAML manifest file, allowing for customization of the Keydb instance during deployment. Refer to the official [v1alpha1.database.keydb ansible role documentation](https://krestomatio.com/docs/ansible-collection-k8s/roles/v1alpha1.database.keydb/) for a comprehensive list of supported fields.
 
 ## Contributing
 
