@@ -1,5 +1,5 @@
 ## Changes
 
-### Documentation
+### Chores
 
-* fix readme (Job Céspedes Ortiz)
+* update: bump collection krestomatio.k8s 0.4.10 (krestomatio-cibot)
