@@ -37,8 +37,8 @@ metadata:
       ]
     capabilities: Seamless Upgrades
     categories: Database
-    containerImage: quay.io/krestomatio/keydb-operator:0.3.13
-    createdAt: "2024-04-18T06:37:51Z"
+    containerImage: quay.io/krestomatio/keydb-operator:0.3.14
+    createdAt: "2024-04-19T06:00:23Z"
     description: |-
       This operator simplifies Keydb deployments in Kubernetes by leveraging
       the Ansible Operator SDK for automation
@@ -49,7 +49,7 @@ metadata:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: keydb-operator.v0.3.13
+  name: keydb-operator.v0.3.14
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -245,7 +245,7 @@ spec:
                 env:
                 - name: ANSIBLE_GATHERING
                   value: explicit
-                image: quay.io/krestomatio/keydb-operator:0.3.13
+                image: quay.io/krestomatio/keydb-operator:0.3.14
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -339,4 +339,4 @@ spec:
   provider:
     name: Krestomatio
     url: https://krestomatio.com
-  version: 0.3.13
+  version: 0.3.14
