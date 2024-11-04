@@ -1,0 +1,6 @@
+# {{ ansible_managed  }}
+{% include 'keydb_v1alpha1_keydb.yaml' %}
+
+{% if keydb_sample_extra_spec is defined and keydb_sample_extra_spec %}
+  {{ keydb_sample_extra_spec | indent(width=2) }}
+{% endif %}
