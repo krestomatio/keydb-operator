@@ -35,3 +35,6 @@ spec:
   keydbExtraConfig: |
     maxmemory 900mb
     maxmemory-policy allkeys-lru
+
+  # Default NetworkPolicy
+  # keydbNetpolOmit: false
