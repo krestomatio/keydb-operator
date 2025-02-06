@@ -22,17 +22,17 @@ This operator simplifies the deployment and management of KeyDB, a high-performa
 1. **Install Operator:**
 ```bash
 # Ensure prerequisites are met
-kubectl apply -k https://github.com/krestomatio/keydb-operator/config/default?ref=v0.3.17
+kubectl apply -k https://github.com/krestomatio/keydb-operator/config/default?ref=v0.3.18
 ```
 
 2. **Configure Keydb Instance:**
-- Download and modify [this sample](https://raw.githubusercontent.com/krestomatio/keydb-operator/v0.3.17/config/samples/keydb_v1alpha1_keydb.yaml) file to reflect your specific instance. This file defines the desired configuration for your KeyDB deployment, including the chosen mode (standalone or multi-master).
+- Download and modify [this sample](https://raw.githubusercontent.com/krestomatio/keydb-operator/v0.3.18/config/samples/keydb_v1alpha1_keydb.yaml) file to reflect your specific instance. This file defines the desired configuration for your KeyDB deployment, including the chosen mode (standalone or multi-master).
 ```bash
-curl -sSL 'https://raw.githubusercontent.com/krestomatio/keydb-operator/v0.3.17/config/samples/keydb_v1alpha1_keydb.yaml' -o keydb_v1alpha1_keydb.yaml
+curl -sSL 'https://raw.githubusercontent.com/krestomatio/keydb-operator/v0.3.18/config/samples/keydb_v1alpha1_keydb.yaml' -o keydb_v1alpha1_keydb.yaml
 # modify keydb_v1alpha1_keydb.yaml
 
 # for multimaster mode, use:
-# curl -sSL 'https://raw.githubusercontent.com/krestomatio/keydb-operator/v0.3.17/config/samples/keydb_v1alpha1_keydb_multimaster.yaml' -o keydb_v1alpha1_keydb.yaml
+# curl -sSL 'https://raw.githubusercontent.com/krestomatio/keydb-operator/v0.3.18/config/samples/keydb_v1alpha1_keydb_multimaster.yaml' -o keydb_v1alpha1_keydb.yaml
 ```
 
 3. **Deploy Keydb:**
@@ -62,7 +62,7 @@ kubectl delete -f keydb_v1alpha1_keydb.yaml
 
 2. **Uninstall Operator:**
 ```bash
-kubectl delete -k https://github.com/krestomatio/keydb-operator/config/default?ref=v0.3.17
+kubectl delete -k https://github.com/krestomatio/keydb-operator/config/default?ref=v0.3.18
 ```
 
 ## Configuration

@@ -37,8 +37,8 @@ metadata:
       ]
     capabilities: Seamless Upgrades
     categories: Database
-    containerImage: quay.io/krestomatio/keydb-operator:0.3.17
-    createdAt: "2025-02-06T12:55:53Z"
+    containerImage: quay.io/krestomatio/keydb-operator:0.3.18
+    createdAt: "2025-02-06T21:30:11Z"
     description: |-
       This operator simplifies Keydb deployments in Kubernetes by leveraging
       the Ansible Operator SDK for automation
@@ -49,7 +49,7 @@ metadata:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: keydb-operator.v0.3.17
+  name: keydb-operator.v0.3.18
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -223,37 +223,16 @@ spec:
             spec:
               containers:
               - args:
-                - --secure-listen-address=0.0.0.0:8443
-                - --upstream=http://127.0.0.1:8080/
-                - --logtostderr=true
-                - --v=0
-                image: gcr.io/kubebuilder/kube-rbac-proxy:v0.14.1
-                name: kube-rbac-proxy
-                ports:
-                - containerPort: 8443
-                  name: https
-                  protocol: TCP
-                resources:
-                  limits:
-                    cpu: 500m
-                    memory: 128Mi
-                  requests:
-                    cpu: 5m
-                    memory: 64Mi
-                securityContext:
-                  allowPrivilegeEscalation: false
-                  capabilities:
-                    drop:
-                    - ALL
-              - args:
-                - --health-probe-bind-address=:6789
-                - --metrics-bind-address=127.0.0.1:8080
+                - --metrics-require-rbac
+                - --metrics-secure
+                - --metrics-bind-address=:8443
                 - --leader-elect
                 - --leader-election-id=keydb-operator
+                - --health-probe-bind-address=:6789
                 env:
                 - name: ANSIBLE_GATHERING
                   value: explicit
-                image: quay.io/krestomatio/keydb-operator:0.3.17
+                image: quay.io/krestomatio/keydb-operator:0.3.18
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -347,4 +326,4 @@ spec:
   provider:
     name: Krestomatio
     url: https://krestomatio.com
-  version: 0.3.17
+  version: 0.3.18

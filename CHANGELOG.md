@@ -1,5 +1,10 @@
 ## Changes
 
+### New Features
+
+* update operator sdk version (Job Céspedes Ortiz)
+
 ### Chores
 
-* update: bump collection krestomatio.k8s 0.4.18 (krestomatio-cibot)
+* update molecule (Job Céspedes Ortiz)
+* update makefiles (Job Céspedes Ortiz)
