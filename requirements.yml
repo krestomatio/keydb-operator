@@ -3,8 +3,8 @@ collections:
   - name: operator_sdk.util
     version: "0.5.0"
   - name: kubernetes.core
-    version: "2.4.0"
+    version: "3.2.0"
   - name: cloud.common
-    version: "2.1.1"
+    version: "3.0.0"
   - name: community.docker
-    version: "3.4.0"
+    version: "3.12.1"
