@@ -2,4 +2,4 @@
 resources:
 - keydb_v1alpha1_keydb.yaml
 - keydb_v1alpha1_keydb_multimaster.yaml
-#+kubebuilder:scaffold:manifestskustomizesamples
+# +kubebuilder:scaffold:manifestskustomizesamples

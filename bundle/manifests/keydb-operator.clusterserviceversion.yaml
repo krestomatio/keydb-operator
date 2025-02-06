@@ -204,12 +204,8 @@ spec:
         serviceAccountName: keydb-operator-controller-manager
       deployments:
       - label:
-          app.kubernetes.io/component: manager
-          app.kubernetes.io/created-by: keydb-operator
-          app.kubernetes.io/instance: controller-manager
           app.kubernetes.io/managed-by: kustomize
-          app.kubernetes.io/name: deployment
-          app.kubernetes.io/part-of: keydb-operator
+          app.kubernetes.io/name: keydb-operator
           control-plane: controller-manager
         name: keydb-operator-controller-manager
         spec:

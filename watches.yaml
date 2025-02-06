@@ -24,4 +24,4 @@
       cr_state: absent
   playbook: playbooks/keydb.yml
 
-#+kubebuilder:scaffold:watch
+# +kubebuilder:scaffold:watch

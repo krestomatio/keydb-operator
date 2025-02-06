@@ -3,4 +3,4 @@
 # It should be run by config/default
 resources:
 - bases/keydb.krestomat.io_keydbs.yaml
-#+kubebuilder:scaffold:crdkustomizeresource
+# +kubebuilder:scaffold:crdkustomizeresource
