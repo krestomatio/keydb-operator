@@ -100,7 +100,9 @@ spec:
           - promote
           command:
           - make
-  podTemplate: {}
+  podTemplate:
+    nodeSelector:
+      kubernetes.io/arch: amd64
   serviceAccountName: tekton-bot
   timeout: 240h0m0s
 status: {}
