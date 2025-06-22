@@ -2,4 +2,4 @@
 
 ### Chores
 
-* update: bump collection krestomatio.k8s 0.4.29 (krestomatio-cibot)
+* update: bump collection krestomatio.k8s 0.4.31 (krestomatio-cibot)
